@@ -12,19 +12,21 @@
     <form action="/api/pessoas" method="get">
         <h1>Pesquisar pessoa:</h1>
         <label class="label-input">Id:</label>
-        <input name="idPessoa" class="texto">
+        <input name="idPessoa" id="idPessoa" class="texto">
         <input id="salvar" onclick="buscarDados();" type="button" value="buscar">
         <div id="info-area">
             <div id="user-info">
-                <p>Nome:</p>
-                <p>Data Nascimento:</p>
-                <p>CPF:</p>
-                <p>Sexo:</p>
-                <p>Altura:</p>
-                <p>Peso:</p>
+                <p><label>Nome:  </label><input name="nome" id="nome" type="text"></p>
+                <p><label>Data Nascimento:  </label><input name="dataNasc" id="dataNasc" type="date"></p>
+                <p><label>CPF:  </label><input name="cpf" id="cpf" type="text"><p></p>
+                <p><label>Sexo:  </label>
+                    <input name="sexo" type="radio" id="M" value="M"> Masculino
+                    <input name="sexo" type="radio" id="F" value="F"> Feminino </p>
+                <p><label>Altura:  </label><input name="altura" id="altura" type="number" step="0.01"></p>
+                <p><label>Peso:  </label><input name="peso" id="peso" type="number" step="0.1"></p>
             </div>
             <div id="user-actions">
-                <input id="editar" type="button" value="editar">
+                <input id="editar" type="button" value="atualizar">
                 <input id="deletar" type="button" value="deletar">
                 <input id="calcular" onclick="exibirPesoIdeal();" type="button" value="calcular peso">
             </div>
@@ -35,8 +37,24 @@
 </div>
 
 <script>
+
+    var idPessoa = 0;
+    var nome = "";
+    var dia = 0;
+    var mes = 0;
+    var ano = 0;
+    var sexo = "";
+    var altura = 0;
+    var peso = 0;
+
     function exibir() {
         document.getElementById("info-area").style.display = "flex";
+        document.getElementById("nome").value = nome;
+        document.getElementById("cpf").value = cpf;
+        document.getElementById("dataNasc").value = ano+"-"+mes+"-"+dia;
+        document.getElementById(sexo).checked = true;
+        document.getElementById("altura").value = altura;
+        document.getElementById("peso").value = peso;
     }
 
     function exibirPesoIdeal(){
@@ -45,10 +63,22 @@
     }
 
     async function buscarDados(){
+        let idPessoa = document.getElementById("idPessoa").value;
+        console.log(idPessoa);
         try {
-            const response = await fetch("/api/pessoas/1")
-            const data = await response.json()
-            console.log(data)
+            const response = await fetch(`/api/pessoas/${idPessoa}`);
+            const data = await response.json();
+            console.log(data);
+            nome = data.nome;
+            cpf = data.cpf;
+            let dataNasc = new Date(data.dataNasc);
+            sexo = data.sexo;
+            altura = data.altura;
+            peso = data.peso;
+            dia = dataNasc.getDate() > 9 ? dataNasc.getDate() : "0" + dataNasc.getDate();
+            mes = dataNasc.getMonth() + 1 > 9 ? dataNasc.getMonth() + 1 : "0" + (dataNasc.getMonth() + 1);
+            ano = dataNasc.getFullYear();
+            exibir();
         } catch (error){
             console.error(error)
         }
