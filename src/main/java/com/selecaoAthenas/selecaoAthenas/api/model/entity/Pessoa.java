@@ -25,7 +25,6 @@ public class Pessoa implements Serializable {
 
     private String nome;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataNasc;
 
     private String cpf;

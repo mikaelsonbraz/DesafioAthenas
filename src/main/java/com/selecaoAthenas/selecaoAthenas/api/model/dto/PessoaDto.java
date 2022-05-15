@@ -23,7 +23,6 @@ public class PessoaDto {
 
     private String nome;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataNasc;
 
     private String cpf;

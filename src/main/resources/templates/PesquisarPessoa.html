@@ -13,15 +13,15 @@
         <h1>Pesquisar pessoa:</h1>
         <label class="label-input">Id:</label>
         <input name="idPessoa" class="texto">
-        <input id="salvar" onclick="exibir();" type="button" value="buscar">
+        <input id="salvar" onclick="buscarDados();" type="button" value="buscar">
         <div id="info-area">
             <div id="user-info">
-                <p>Nome: <span th:text="${pessoa.nome}"></span></p>
-                <p>Data Nascimento: <span th:text="${pessoa.dataNasc}"></span></p>
-                <p>CPF: <span th:text="${pessoa.cpf}"></span></p>
-                <p>Sexo: <span th:text="${pessoa.sexo}"></span></p>
-                <p>Altura: <span th:text="${pessoa.altura}"></span></p>
-                <p>Peso: <span th:text="${pessoa.peso}"></span></p>
+                <p>Nome:</p>
+                <p>Data Nascimento:</p>
+                <p>CPF:</p>
+                <p>Sexo:</p>
+                <p>Altura:</p>
+                <p>Peso:</p>
             </div>
             <div id="user-actions">
                 <input id="editar" type="button" value="editar">
@@ -42,6 +42,16 @@
     function exibirPesoIdeal(){
         let peso = ( 72.7 * 1.7 )-58;
         window.alert(`Seu peso ideal é ${peso} Kgs`);
+    }
+
+    async function buscarDados(){
+        try {
+            const response = await fetch("/api/pessoas/1")
+            const data = await response.json()
+            console.log(data)
+        } catch (error){
+            console.error(error)
+        }
     }
 </script>
 </body>
