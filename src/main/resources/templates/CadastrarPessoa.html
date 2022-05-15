@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles.css}" href="../static/styles.css">
+    <title>Cadastrar Pessoa</title>
+</head>
+<body>
+
+    <div id="container">
+
+        <form action="/api/pessoas" method="post">
+            <h1>Insira seus dados:</h1>
+            <label class="label-input">Nome:</label>
+            <input name="nome" class="texto">
+            <label class="label-input">Data de Nascimento:</label>
+            <input name="dataNasc" type="date" class="texto">
+            <label class="label-input">CPF:</label>
+            <input name="cpf" class="texto">
+            <span class="label-input">Sexo:</span>
+            <div id="genero">
+                <input name="sexo" type="radio" id="M" value="M">
+                <label class="label-radio" for="M">Masculino</label>
+                <input name="sexo" type="radio" id="F" value="F">
+                <label class="label-radio" for="F">Feminino</label>
+            </div>
+            <label class="label-input">Altura:</label>
+            <input name="altura" type="number" step="0.01" class="texto">
+            <label class="label-input">Peso:</label>
+            <input name="peso" type="number" class="texto">
+            <p id="cadastrado">Cadastro de pessoa efetuado com sucesso!</p>
+            <input id="salvar" onclick="exibir();" type="submit" value="salvar">
+            <a href="/" id="back">&lt;&lt;Voltar</a>
+        </form>
+
+    </div>
+
+<script>
+    function exibir() {
+        document.getElementById("cadastrado").style.display = "block";
+    }
+</script>
+</body>
+</html>

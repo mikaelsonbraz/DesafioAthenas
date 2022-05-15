@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles.css}" href="../static/styles.css">
+    <title>Pesquisar Pessoa</title>
+</head>
+<body>
+
+<div id="container">
+
+    <form action="/api/pessoas" method="get">
+        <h1>Pesquisar pessoa:</h1>
+        <label class="label-input">Id:</label>
+        <input name="idPessoa" class="texto">
+        <input id="salvar" onclick="exibir();" type="button" value="buscar">
+        <div id="info-area">
+            <div id="user-info">
+                <p>Nome: <span th:text="${pessoa.nome}"></span></p>
+                <p>Data Nascimento: <span th:text="${pessoa.dataNasc}"></span></p>
+                <p>CPF: <span th:text="${pessoa.cpf}"></span></p>
+                <p>Sexo: <span th:text="${pessoa.sexo}"></span></p>
+                <p>Altura: <span th:text="${pessoa.altura}"></span></p>
+                <p>Peso: <span th:text="${pessoa.peso}"></span></p>
+            </div>
+            <div id="user-actions">
+                <input id="editar" type="button" value="editar">
+                <input id="deletar" type="button" value="deletar">
+                <input id="calcular" onclick="exibirPesoIdeal();" type="button" value="calcular peso">
+            </div>
+        </div>
+        <a href="/" id="back">&lt;&lt;Voltar</a>
+    </form>
+
+</div>
+
+<script>
+    function exibir() {
+        document.getElementById("info-area").style.display = "flex";
+    }
+
+    function exibirPesoIdeal(){
+        let peso = ( 72.7 * 1.7 )-58;
+        window.alert(`Seu peso ideal é ${peso} Kgs`);
+    }
+</script>
+</body>
+</html>
