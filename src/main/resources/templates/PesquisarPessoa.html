@@ -9,7 +9,7 @@
 
 <div id="container">
 
-    <form action="/api/pessoas" method="get">
+    <form action="/api/pessoas/" id="formulario" method="get">
         <h1>Pesquisar pessoa:</h1>
         <label class="label-input">Id:</label>
         <input name="idPessoa" id="idPessoa" class="texto">
@@ -20,14 +20,14 @@
                 <p><label>Data Nascimento:  </label><input name="dataNasc" id="dataNasc" type="date"></p>
                 <p><label>CPF:  </label><input name="cpf" id="cpf" type="text"><p></p>
                 <p><label>Sexo:  </label>
-                    <input name="sexo" type="radio" id="M" value="M"> Masculino
-                    <input name="sexo" type="radio" id="F" value="F"> Feminino </p>
+                    <span><input name="sexo" type="radio" id="M" value="M"> Masculino
+                    <input name="sexo" type="radio" id="F" value="F"> Feminino</span> </p>
                 <p><label>Altura:  </label><input name="altura" id="altura" type="number" step="0.01"></p>
                 <p><label>Peso:  </label><input name="peso" id="peso" type="number" step="0.1"></p>
             </div>
             <div id="user-actions">
-                <input id="editar" type="button" value="atualizar">
-                <input id="deletar" type="button" value="deletar">
+                <input id="editar" type="submit" onclick="atualizaDados();" value="atualizar">
+                <input id="deletar" type="button" onclick="deletaDados();" value="deletar">
                 <input id="calcular" onclick="exibirPesoIdeal();" type="button" value="calcular peso">
             </div>
         </div>
@@ -58,12 +58,17 @@
     }
 
     function exibirPesoIdeal(){
-        let peso = ( 72.7 * 1.7 )-58;
-        window.alert(`Seu peso ideal é ${peso} Kgs`);
+        let peso = 0;
+        if (sexo === 'M'){
+            peso = ( 72.7 * altura )-58;
+        } else {
+            peso = ( 62.1 * altura )-44.7;
+        }
+        window.alert(`${nome}, seu peso ideal é de ${peso.toFixed(1)} Kgs`);
     }
 
     async function buscarDados(){
-        let idPessoa = document.getElementById("idPessoa").value;
+        idPessoa = document.getElementById("idPessoa").value;
         console.log(idPessoa);
         try {
             const response = await fetch(`/api/pessoas/${idPessoa}`);
@@ -82,6 +87,21 @@
         } catch (error){
             console.error(error)
         }
+    }
+
+    function deletaDados(){
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('post', `/api/pessoas/delete/${idPessoa}`, true);
+        xhr.send();
+
+        window.alert("Dados deletados com sucesso");
+    }
+
+    function atualizaDados(){
+        document.getElementById("formulario").action = `/api/pessoas/update/${idPessoa}`;
+        document.getElementById("formulario").method = "post";
+        window.alert("Dados atualizados com sucesso");
     }
 </script>
 </body>

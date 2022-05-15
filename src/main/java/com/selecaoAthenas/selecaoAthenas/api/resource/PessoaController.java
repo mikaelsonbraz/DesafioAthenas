@@ -36,7 +36,7 @@ public class PessoaController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     @ResponseStatus(HttpStatus.OK)
     public PessoaDto update(@PathVariable Integer id, PessoaDto pessoaDto){
         return service.getById(id)
@@ -52,7 +52,7 @@ public class PessoaController {
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id){
         Pessoa pessoa = service.getById(id)
