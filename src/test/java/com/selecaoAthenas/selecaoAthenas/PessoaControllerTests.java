@@ -134,7 +134,7 @@ public class PessoaControllerTests {
 
         //execução
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .put(API_PESSOAS.concat("/update/1"))
+                .post(API_PESSOAS.concat("/update/1"))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
@@ -155,7 +155,7 @@ public class PessoaControllerTests {
 
         //execução
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .put(API_PESSOAS.concat("/update/1"))
+                .post(API_PESSOAS.concat("/update/1"))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
@@ -174,7 +174,7 @@ public class PessoaControllerTests {
 
         //execução
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .delete(API_PESSOAS.concat("/delete/1"));
+                .post(API_PESSOAS.concat("/delete/1"));
 
         //verificação
         mvc.perform(request)
@@ -189,7 +189,7 @@ public class PessoaControllerTests {
 
         //execução
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .delete(API_PESSOAS.concat("/delete/1"));
+                .post(API_PESSOAS.concat("/delete/1"));
 
         //verificação
         mvc.perform(request)
